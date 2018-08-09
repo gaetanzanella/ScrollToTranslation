@@ -8,18 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		E78864A9211AF6F9007D3146 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864A8211AF6F9007D3146 /* AppDelegate.swift */; };
-		E78864AB211AF6F9007D3146 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864AA211AF6F9007D3146 /* ViewController.swift */; };
+		E78864AB211AF6F9007D3146 /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864AA211AF6F9007D3146 /* OverlayViewController.swift */; };
 		E78864B0211AF6FA007D3146 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E78864AF211AF6FA007D3146 /* Assets.xcassets */; };
 		E78864B3211AF6FA007D3146 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E78864B1211AF6FA007D3146 /* LaunchScreen.storyboard */; };
+		E78864BF211AF7EF007D3146 /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864BE211AF7EF007D3146 /* StackViewController.swift */; };
+		E78864C1211AF857007D3146 /* GripableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864C0211AF857007D3146 /* GripableTableView.swift */; };
+		E78864C3211AF8C7007D3146 /* PassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864C2211AF8C7007D3146 /* PassThroughView.swift */; };
+		E78864C6211AF912007D3146 /* UIViewController+children.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864C5211AF912007D3146 /* UIViewController+children.swift */; };
+		E78864C8211AF921007D3146 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864C7211AF921007D3146 /* UIView+Layout.swift */; };
+		E78864CA211AF94A007D3146 /* BackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864C9211AF94A007D3146 /* BackgroundViewController.swift */; };
+		E78864CD211AF983007D3146 /* OverlayContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864CC211AF983007D3146 /* OverlayContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E78864A5211AF6F9007D3146 /* ScrollToTranslation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollToTranslation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E78864A8211AF6F9007D3146 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E78864AA211AF6F9007D3146 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E78864AA211AF6F9007D3146 /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		E78864AF211AF6FA007D3146 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E78864B2211AF6FA007D3146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E78864B4211AF6FA007D3146 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E78864BE211AF7EF007D3146 /* StackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
+		E78864C0211AF857007D3146 /* GripableTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GripableTableView.swift; sourceTree = "<group>"; };
+		E78864C2211AF8C7007D3146 /* PassThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassThroughView.swift; sourceTree = "<group>"; };
+		E78864C5211AF912007D3146 /* UIViewController+children.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+children.swift"; sourceTree = "<group>"; };
+		E78864C7211AF921007D3146 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		E78864C9211AF94A007D3146 /* BackgroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundViewController.swift; sourceTree = "<group>"; };
+		E78864CC211AF983007D3146 /* OverlayContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				E78864A8211AF6F9007D3146 /* AppDelegate.swift */,
+				E78864C4211AF8FA007D3146 /* Extensions */,
 				E78864BB211AF704007D3146 /* View */,
 				E78864BA211AF6FE007D3146 /* ViewController */,
 				E78864BC211AF724007D3146 /* Resources */,
@@ -64,7 +79,10 @@
 		E78864BA211AF6FE007D3146 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E78864AA211AF6F9007D3146 /* ViewController.swift */,
+				E78864BE211AF7EF007D3146 /* StackViewController.swift */,
+				E78864C9211AF94A007D3146 /* BackgroundViewController.swift */,
+				E78864CC211AF983007D3146 /* OverlayContainerViewController.swift */,
+				E78864AA211AF6F9007D3146 /* OverlayViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -72,6 +90,8 @@
 		E78864BB211AF704007D3146 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E78864C0211AF857007D3146 /* GripableTableView.swift */,
+				E78864C2211AF8C7007D3146 /* PassThroughView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -91,6 +111,15 @@
 				E78864B4211AF6FA007D3146 /* Info.plist */,
 			);
 			path = Configuration;
+			sourceTree = "<group>";
+		};
+		E78864C4211AF8FA007D3146 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E78864C5211AF912007D3146 /* UIViewController+children.swift */,
+				E78864C7211AF921007D3146 /* UIView+Layout.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,8 +192,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E78864AB211AF6F9007D3146 /* ViewController.swift in Sources */,
+				E78864CA211AF94A007D3146 /* BackgroundViewController.swift in Sources */,
+				E78864BF211AF7EF007D3146 /* StackViewController.swift in Sources */,
+				E78864AB211AF6F9007D3146 /* OverlayViewController.swift in Sources */,
+				E78864CD211AF983007D3146 /* OverlayContainerViewController.swift in Sources */,
 				E78864A9211AF6F9007D3146 /* AppDelegate.swift in Sources */,
+				E78864C6211AF912007D3146 /* UIViewController+children.swift in Sources */,
+				E78864C3211AF8C7007D3146 /* PassThroughView.swift in Sources */,
+				E78864C8211AF921007D3146 /* UIView+Layout.swift in Sources */,
+				E78864C1211AF857007D3146 /* GripableTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
