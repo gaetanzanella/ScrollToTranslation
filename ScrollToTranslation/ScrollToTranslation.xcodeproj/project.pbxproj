@@ -12,7 +12,6 @@
 		E78864B0211AF6FA007D3146 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E78864AF211AF6FA007D3146 /* Assets.xcassets */; };
 		E78864B3211AF6FA007D3146 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E78864B1211AF6FA007D3146 /* LaunchScreen.storyboard */; };
 		E78864BF211AF7EF007D3146 /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864BE211AF7EF007D3146 /* StackViewController.swift */; };
-		E78864C1211AF857007D3146 /* GripableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864C0211AF857007D3146 /* GripableTableView.swift */; };
 		E78864C3211AF8C7007D3146 /* PassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864C2211AF8C7007D3146 /* PassThroughView.swift */; };
 		E78864C6211AF912007D3146 /* UIViewController+children.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864C5211AF912007D3146 /* UIViewController+children.swift */; };
 		E78864C8211AF921007D3146 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78864C7211AF921007D3146 /* UIView+Layout.swift */; };
@@ -28,7 +27,6 @@
 		E78864B2211AF6FA007D3146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E78864B4211AF6FA007D3146 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E78864BE211AF7EF007D3146 /* StackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
-		E78864C0211AF857007D3146 /* GripableTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GripableTableView.swift; sourceTree = "<group>"; };
 		E78864C2211AF8C7007D3146 /* PassThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassThroughView.swift; sourceTree = "<group>"; };
 		E78864C5211AF912007D3146 /* UIViewController+children.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+children.swift"; sourceTree = "<group>"; };
 		E78864C7211AF921007D3146 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 		E78864BB211AF704007D3146 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E78864C0211AF857007D3146 /* GripableTableView.swift */,
 				E78864C2211AF8C7007D3146 /* PassThroughView.swift */,
 			);
 			path = View;
@@ -200,7 +197,6 @@
 				E78864C6211AF912007D3146 /* UIViewController+children.swift in Sources */,
 				E78864C3211AF8C7007D3146 /* PassThroughView.swift in Sources */,
 				E78864C8211AF921007D3146 /* UIView+Layout.swift in Sources */,
-				E78864C1211AF857007D3146 /* GripableTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

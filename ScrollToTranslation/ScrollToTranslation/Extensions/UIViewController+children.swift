@@ -9,11 +9,11 @@
 import UIKit
 
 extension UIViewController {
-    func gz_addChild(_ child: UIViewController, in containerView: UIView) {
+    func gz_addChild(_ child: UIViewController, in containerView: UIView, edges: UIRectEdge = .all) {
         guard containerView.isDescendant(of: view) else { return }
         addChildViewController(child)
         containerView.addSubview(child.view)
-        child.view.gz_pinToSuperview()
+        child.view.gz_pinToSuperview(edges: edges)
         child.didMove(toParentViewController: self)
     }
 }

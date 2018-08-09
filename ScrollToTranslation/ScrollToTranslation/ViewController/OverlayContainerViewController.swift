@@ -17,13 +17,12 @@ enum OverlayPosition {
     case maximum, minimum
 }
 
-class OverlayContainerViewController: UIViewController, UIGestureRecognizerDelegate, GripableTableViewDelegate {
+class OverlayContainerViewController: UIViewController, OverlayViewControllerDelegate {
 
     private let overlayViewController: OverlayViewController
 
     private lazy var translatedView = UIView()
     private lazy var translatedViewHeightContraint = self.makeTranslatedViewHeightConstraint()
-    private lazy var translationPanGestureRecognizer = self.makePanGestureRecognizer()
 
     private var overlayPosition: OverlayPosition = .minimum
 
@@ -58,12 +57,16 @@ class OverlayContainerViewController: UIViewController, UIGestureRecognizerDeleg
         setUpController()
     }
 
-    // MARK: - GripableTableViewDelegate
+    // MARK: - OverlayViewControllerDelegate
 
-    func gripableTableView(_ tableView: UITableView,
-                           shouldResetContentOffsetDuringLayout newValue: CGPoint) -> Bool {
-        let height = translatedView.frame.height
-        return Constant.maximumHeight > height && height > Constant.minimumHeight
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.isTracking else { return }
+        resetContentOffsetIfRequired(in: scrollView)
+        translateView(following: scrollView)
+    }
+
+    func scrollViewDidStopScrolling(_ scrollView: UIScrollView) {
+        animateTranslationEnd()
     }
 
     // MARK: - Public
@@ -76,43 +79,39 @@ class OverlayContainerViewController: UIViewController, UIGestureRecognizerDeleg
         }
     }
 
-    // MARK: - UIGestureRecognizerDelegate
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-
-    // MARK: - Actions
-
-    @objc private func translationGestureRecognizerAction(_ sender: UIPanGestureRecognizer) {
-        switch sender.state {
-        case .began:
-            translateView(following: sender)
-        case .changed:
-            translateView(following: sender)
-        case .failed, .ended:
-            animateTranslationEnd()
-        default:
-            break
-        }
-    }
-
     // MARK: - Private
 
     private func setUpController() {
         view.addSubview(translatedView)
-        overlayViewController.tableView.gripableDelegate = self
         translatedView.gz_pinToSuperview(edges: [.left, .right, .bottom])
         translatedViewHeightContraint.isActive = true
-        gz_addChild(overlayViewController, in: translatedView)
-        translatedView.addGestureRecognizer(translationPanGestureRecognizer)
+        gz_addChild(overlayViewController, in: translatedView, edges: [.right, .left, .top])
+        overlayViewController.view.heightAnchor.constraint(equalToConstant: Constant.maximumHeight).isActive = true
         translatedView.backgroundColor = .red
         overlayViewController.tableView.backgroundColor = .red
+        overlayViewController.delegate = self
     }
 
-    private func translateView(following panGesture: UIPanGestureRecognizer) {
-        let translation = translatedViewTargetHeight - panGesture.translation(in: view).y
+    private func resetContentOffsetIfRequired(in scrollView: UIScrollView) {
+        let shouldReset: Bool
+        let height = translatedView.frame.height
+        if height == Constant.maximumHeight {
+            shouldReset = scrollView.contentOffset.y < 0
+        } else if height == Constant.minimumHeight {
+            shouldReset = scrollView.contentOffset.y > 0
+        } else {
+            shouldReset = Constant.maximumHeight > height && height > Constant.minimumHeight
+        }
+        if shouldReset {
+            scrollView.contentOffset = .zero
+        }
+    }
+
+    private func translateView(following scrollView: UIScrollView) {
+        guard scrollView.contentOffset.y <= 0 else {
+            return
+        }
+        let translation = translatedViewTargetHeight - scrollView.panGestureRecognizer.translation(in: view).y
         translatedViewHeightContraint.constant = max(
             Constant.minimumHeight,
             min(translation, Constant.maximumHeight)
@@ -127,14 +126,5 @@ class OverlayContainerViewController: UIViewController, UIGestureRecognizerDeleg
 
     private func makeTranslatedViewHeightConstraint() -> NSLayoutConstraint {
         return translatedView.heightAnchor.constraint(equalToConstant: Constant.minimumHeight)
-    }
-
-    private func makePanGestureRecognizer() -> UIPanGestureRecognizer {
-        let gesture = UIPanGestureRecognizer(
-            target: self,
-            action: #selector(translationGestureRecognizerAction(_:))
-        )
-        gesture.delegate = self
-        return gesture
     }
 }

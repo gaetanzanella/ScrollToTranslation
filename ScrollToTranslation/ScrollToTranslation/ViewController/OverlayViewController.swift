@@ -8,14 +8,22 @@
 
 import UIKit
 
+protocol OverlayViewControllerDelegate: class {
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
+    func scrollViewDidStopScrolling(_ scrollView: UIScrollView)
+}
+
 class OverlayViewController: UIViewController {
 
-    private(set) lazy var tableView = GripableTableView()
+    weak var delegate: OverlayViewControllerDelegate?
+
+    private(set) lazy var tableView = UITableView()
 
     override func loadView() {
         view = tableView
         tableView.dataSource = self
-        tableView.showsHorizontalScrollIndicator = false
+        tableView.showsVerticalScrollIndicator = false
+        tableView.delegate = self
     }
 }
 
@@ -29,5 +37,13 @@ extension OverlayViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 100
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        delegate?.scrollViewDidScroll(scrollView)
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        delegate?.scrollViewDidStopScrolling(scrollView)
     }
 }
