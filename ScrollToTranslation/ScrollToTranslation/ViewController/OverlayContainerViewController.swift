@@ -60,8 +60,7 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
     // MARK: - OverlayViewControllerDelegate
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.isTracking else { return }
-        resetContentOffsetIfRequired(in: scrollView)
+        guard scrollView.isTracking, shouldTranslateView(following: scrollView) else { return }
         translateView(following: scrollView)
     }
 
@@ -92,25 +91,20 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
         overlayViewController.delegate = self
     }
 
-    private func resetContentOffsetIfRequired(in scrollView: UIScrollView) {
-        let shouldReset: Bool
-        let height = translatedView.frame.height
+    private func shouldTranslateView(following scrollView: UIScrollView) -> Bool {
+        let height = translatedViewHeightContraint.constant
+        let offset = scrollView.contentOffset.y
         if height == Constant.maximumHeight {
-            shouldReset = scrollView.contentOffset.y < 0
+            return offset < 0
         } else if height == Constant.minimumHeight {
-            shouldReset = scrollView.contentOffset.y > 0
+            return offset > 0
         } else {
-            shouldReset = Constant.maximumHeight > height && height > Constant.minimumHeight
-        }
-        if shouldReset {
-            scrollView.contentOffset = .zero
+            return Constant.maximumHeight > height && height > Constant.minimumHeight
         }
     }
 
     private func translateView(following scrollView: UIScrollView) {
-        guard scrollView.contentOffset.y <= 0 else {
-            return
-        }
+        scrollView.contentOffset = .zero
         let translation = translatedViewTargetHeight - scrollView.panGestureRecognizer.translation(in: view).y
         translatedViewHeightContraint.constant = max(
             Constant.minimumHeight,

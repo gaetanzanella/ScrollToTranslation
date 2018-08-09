@@ -13,7 +13,7 @@ protocol OverlayViewControllerDelegate: class {
     func scrollViewDidStopScrolling(_ scrollView: UIScrollView)
 }
 
-class OverlayViewController: UIViewController {
+class OverlayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     weak var delegate: OverlayViewControllerDelegate?
 
@@ -25,9 +25,9 @@ class OverlayViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
     }
-}
 
-extension OverlayViewController: UITableViewDataSource, UITableViewDelegate {
+    // MARK: - UITableViewDataSource & UITableViewDelegate
+
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .default, reuseIdentifier: "cell")

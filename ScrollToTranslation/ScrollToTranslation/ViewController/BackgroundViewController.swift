@@ -6,11 +6,11 @@
 //  Copyright © 2018 Gaétan Zanella. All rights reserved.
 //
 
+import MapKit
 import UIKit
 
 class BackgroundViewController: UIViewController {
     override func loadView() {
-        view = UIView()
-        view.backgroundColor = .green
+        view = MKMapView()
     }
 }
