@@ -26,7 +26,7 @@ class OverlayViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.delegate = self
     }
 
-    // MARK: - UITableViewDataSource & UITableViewDelegate
+    // MARK: - UITableViewDataSource, UITableViewDelegate
 
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -36,7 +36,7 @@ class OverlayViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return 4
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
