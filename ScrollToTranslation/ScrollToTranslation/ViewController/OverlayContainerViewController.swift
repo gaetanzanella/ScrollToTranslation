@@ -99,7 +99,7 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
     // MARK: - Public
 
     func moveOverlay(to position: OverlayPosition) {
-        moveOverlay(to: position, duration: Constant.defaultTranslationDuration, velocity: .zero, options: [])
+        moveOverlay(to: position, duration: Constant.defaultTranslationDuration, velocity: .zero)
     }
 
     // MARK: - Private
@@ -114,7 +114,7 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
         overlayViewController.tableView.backgroundColor = .red
         overlayViewController.delegate = self
     }
-
+    
     private func shouldTranslateView(following scrollView: UIScrollView) -> Bool {
         guard scrollView.isTracking else { return false }
         let offset = scrollView.contentOffset.y
@@ -151,7 +151,7 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
             } else {
                 position = .maximum
             }
-            moveOverlay(to: position, duration: duration, velocity: velocity, options: [])
+            moveOverlay(to: position, duration: duration, velocity: velocity)
         } else {
             if progress < 0.5 {
                 moveOverlay(to: .minimum)
@@ -163,8 +163,7 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
 
     private func moveOverlay(to position: OverlayPosition,
                              duration: TimeInterval,
-                             velocity: CGPoint,
-                             options: UIViewAnimationOptions) {
+                             velocity: CGPoint) {
         overlayPosition = position
         translatedViewHeightContraint.constant = translatedViewTargetHeight
         UIView.animate(
@@ -172,7 +171,7 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
             delay: 0,
             usingSpringWithDamping: velocity.y == 0 ? 1 : 0.6,
             initialSpringVelocity: abs(velocity.y),
-            options: [],
+            options: [.allowUserInteraction],
             animations: {
                 self.view.layoutIfNeeded()
         }, completion: nil)

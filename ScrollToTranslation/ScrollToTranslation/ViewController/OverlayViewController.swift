@@ -38,7 +38,7 @@ class OverlayViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return 10
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
