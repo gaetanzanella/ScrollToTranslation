@@ -38,7 +38,7 @@ class OverlayViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 100
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -48,10 +48,6 @@ class OverlayViewController: UIViewController, UITableViewDataSource, UITableVie
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print("DEFAULT")
-        print(velocity)
-        print("PAN")
-        print(scrollView.panGestureRecognizer.velocity(in: scrollView))
         delegate?.scrollView(scrollView, willEndScrollingWithVelocity: velocity, targetContentOffset: targetContentOffset)
     }
 }

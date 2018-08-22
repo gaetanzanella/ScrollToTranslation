@@ -87,14 +87,13 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
     func scrollView(_ scrollView: UIScrollView,
                     willEndScrollingWithVelocity velocity: CGPoint,
                     targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print(velocity)
         switch overlayInFlightPosition {
-        case .maximum, .minimum:
+        case .maximum:
             break
-        case .progressing:
+        case .minimum, .progressing:
             targetContentOffset.pointee = .zero
-            animateTranslationEnd(following: scrollView, velocity: velocity)
         }
+        animateTranslationEnd(following: scrollView, velocity: velocity)
     }
 
     // MARK: - Public
@@ -147,7 +146,6 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
             let rest = abs(distance - progressDistance)
             let position: OverlayPosition
             let duration = TimeInterval(rest / abs(velocityY))
-            print(duration)
             if velocityY > 0 {
                 position = .minimum
             } else {
