@@ -10,7 +10,9 @@ import UIKit
 
 protocol OverlayViewControllerDelegate: class {
     func scrollViewDidScroll(_ scrollView: UIScrollView)
-    func scrollViewDidStopScrolling(_ scrollView: UIScrollView)
+    func scrollView(_ scrollView: UIScrollView,
+                    willEndScrollingWithVelocity velocity: CGPoint,
+                    targetContentOffset: UnsafeMutablePointer<CGPoint>)
 }
 
 class OverlayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -43,7 +45,13 @@ class OverlayViewController: UIViewController, UITableViewDataSource, UITableVie
         delegate?.scrollViewDidScroll(scrollView)
     }
 
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        delegate?.scrollViewDidStopScrolling(scrollView)
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+                                   withVelocity velocity: CGPoint,
+                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print("DEFAULT")
+        print(velocity)
+        print("PAN")
+        print(scrollView.panGestureRecognizer.velocity(in: scrollView))
+        delegate?.scrollView(scrollView, willEndScrollingWithVelocity: velocity, targetContentOffset: targetContentOffset)
     }
 }

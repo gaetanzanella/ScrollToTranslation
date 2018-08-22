@@ -11,8 +11,9 @@ import UIKit
 private struct Constant {
     static let minimumHeight: CGFloat = 200
     static let maximumHeight: CGFloat = 500
-    static let minimumVelocityConsideration: CGFloat = 500
+    static let minimumVelocityConsideration: CGFloat = 50
     static let defaultTranslationDuration: TimeInterval = 0.25
+    static let maximumTranslationDuration: TimeInterval = 0.4
 }
 
 enum OverlayPosition {
@@ -83,21 +84,23 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
         translateView(following: scrollView)
     }
 
-    func scrollViewDidStopScrolling(_ scrollView: UIScrollView) {
+    func scrollView(_ scrollView: UIScrollView,
+                    willEndScrollingWithVelocity velocity: CGPoint,
+                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print(velocity)
         switch overlayInFlightPosition {
         case .maximum, .minimum:
             break
         case .progressing:
-            scrollView.isScrollEnabled = false
-            scrollView.isScrollEnabled = true
-            animateTranslationEnd(following: scrollView)
+            targetContentOffset.pointee = .zero
+            animateTranslationEnd(following: scrollView, velocity: velocity)
         }
     }
 
     // MARK: - Public
 
     func moveOverlay(to position: OverlayPosition) {
-        moveOverlay(to: position, duration: Constant.defaultTranslationDuration, options: [])
+        moveOverlay(to: position, duration: Constant.defaultTranslationDuration, velocity: .zero, options: [])
     }
 
     // MARK: - Private
@@ -135,25 +138,22 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
         )
     }
 
-    private func animateTranslationEnd(following scrollView: UIScrollView) {
+    private func animateTranslationEnd(following scrollView: UIScrollView, velocity: CGPoint) {
         let distance = Constant.maximumHeight - Constant.minimumHeight
         let progressDistance = translatedViewHeightContraint.constant - Constant.minimumHeight
         let progress = progressDistance / distance
-        let velocity = scrollView.panGestureRecognizer.velocity(in: view).y
-        if abs(velocity) > Constant.minimumVelocityConsideration && progress != 0 && progress != 1 {
+        let velocityY = -velocity.y * 100
+        if abs(velocityY) > Constant.minimumVelocityConsideration && progress != 0 && progress != 1 {
             let rest = abs(distance - progressDistance)
             let position: OverlayPosition
-            let duration = TimeInterval(rest / velocity)
-            if velocity > 0 {
+            let duration = TimeInterval(rest / abs(velocityY))
+            print(duration)
+            if velocityY > 0 {
                 position = .minimum
             } else {
                 position = .maximum
             }
-            moveOverlay(
-                to: position,
-                duration: duration,
-                options: .curveEaseInOut
-            )
+            moveOverlay(to: position, duration: duration, velocity: velocity, options: [])
         } else {
             if progress < 0.5 {
                 moveOverlay(to: .minimum)
@@ -165,13 +165,16 @@ class OverlayContainerViewController: UIViewController, OverlayViewControllerDel
 
     private func moveOverlay(to position: OverlayPosition,
                              duration: TimeInterval,
+                             velocity: CGPoint,
                              options: UIViewAnimationOptions) {
         overlayPosition = position
         translatedViewHeightContraint.constant = translatedViewTargetHeight
         UIView.animate(
-            withDuration: duration,
+            withDuration: min(duration, Constant.maximumTranslationDuration),
             delay: 0,
-            options: options,
+            usingSpringWithDamping: velocity.y == 0 ? 1 : 0.6,
+            initialSpringVelocity: abs(velocity.y),
+            options: [],
             animations: {
                 self.view.layoutIfNeeded()
         }, completion: nil)
